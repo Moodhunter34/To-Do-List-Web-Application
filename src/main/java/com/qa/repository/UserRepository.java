@@ -12,7 +12,7 @@ import com.qa.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	
-	public User findByName(String name);
+	public User findByFirstName(String firstName);
 	
 	@Query(value = "SELECT * FROM user", nativeQuery = true)
 	public List<User> getAllUsersSQL();
@@ -20,6 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("SELECT u FROM User u")
 	public List<User> getAllUsersJPQL();
 	
-	@Query("SELECT u FROM User WHERE u.name = ?1")
-	public User getUserByNameJPQL(String firstName);
+//	@Query("SELECT u FROM User WHERE u.firstName = ?1")
+//	public User getUserByNameJPQL(String firstName);
 }

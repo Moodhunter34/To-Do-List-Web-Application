@@ -1,4 +1,4 @@
-package com.qa.usertodo;
+package com.qa;
 
 import java.time.LocalTime;
 
