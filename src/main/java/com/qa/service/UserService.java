@@ -49,11 +49,11 @@ public class UserService {
 		}
 	}
 	
-	public UserDTO readByName(String firstName) {
-		User user =  userRepository.getUserByNameJPQL(firstName);
-		
-		return userMapper.mapToDTO(user);
-	}
+//	public UserDTO readByName(String firstName) {
+//		User user =  userRepository.getUserByNameJPQL(firstName);
+//		
+//		return userMapper.mapToDTO(user);
+//	}
 	
 	public UserDTO createUser(User user) {
 		User newUser = userRepository.save(user);
