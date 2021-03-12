@@ -66,12 +66,13 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
 	}
 	
-//	@GetMapping("/firstName/{firstName}")
-//	public ResponseEntity<UserDTO> getUserByName(@PathVariable("firstName") String firstName) {
-//		UserDTO user = userService.readByName(firstName);
-//		
-//		return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
-//	}
+	
+	@GetMapping("/firstName/{firstName}")
+	public ResponseEntity<UserDTO> getUserByFirstName(@PathVariable("firstName") String firstName) {
+		UserDTO user = userService.readByFirstName(firstName);
+		
+		return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
+	}
 	
 	@PostMapping
 	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {

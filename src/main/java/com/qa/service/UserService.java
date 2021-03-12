@@ -7,7 +7,6 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.qa.dto.UserDTO;
@@ -20,6 +19,7 @@ import com.qa.repository.UserRepository;
 @Service
 public class UserService {
 	
+	// Data access object
 	private UserRepository userRepository;
 	
 	private UserMapper userMapper;
@@ -49,11 +49,11 @@ public class UserService {
 		}
 	}
 	
-//	public UserDTO readByName(String firstName) {
-//		User user =  userRepository.getUserByNameJPQL(firstName);
-//		
-//		return userMapper.mapToDTO(user);
-//	}
+	public UserDTO readByFirstName(String firstName) {
+		User user =  userRepository.getUserByFirstNameSQL(firstName);
+		
+		return userMapper.mapToDTO(user);
+	}
 	
 	public UserDTO createUser(User user) {
 		User newUser = userRepository.save(user);
