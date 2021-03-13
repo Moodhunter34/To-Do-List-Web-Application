@@ -1,27 +1,10 @@
-package com.qa.model;
+package com.qa.dto;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-@Entity
-@Table(name = "todo")
-public class Todo {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "todo_id")
+public class TodoDTO {
+	
 	private int id;
 
 	private String title;
@@ -35,17 +18,20 @@ public class Todo {
 	private boolean important;
 
 	private int user_id;
-
-	@OneToMany(mappedBy = "todo", fetch = FetchType.LAZY, orphanRemoval = true)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<User> users;
-
-	public Todo() {
-
+	
+	private List<UserDTO> users;
+	
+	@Override
+	public String toString() {
+		return "TodoDTO [id=" + id + ", title=" + title + ", users=" + users + "]";
+	}
+	
+	public TodoDTO() {
+		
 	}
 
-	public Todo(int id, String title, String memo, Date dateCreated, Date dateCompleted, boolean important,
-			int user_id) {
+	public TodoDTO(int id, String title, String memo, Date dateCreated, Date dateCompleted, boolean important,
+			int user_id, List<UserDTO> users) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -54,16 +40,7 @@ public class Todo {
 		this.dateCompleted = dateCompleted;
 		this.important = important;
 		this.user_id = user_id;
-	}
-
-	public Todo(String title, String memo, Date dateCreated, Date dateCompleted, boolean important, int user_id) {
-		super();
-		this.title = title;
-		this.memo = memo;
-		this.dateCreated = dateCreated;
-		this.dateCompleted = dateCompleted;
-		this.important = important;
-		this.user_id = user_id;
+		this.users = users;
 	}
 
 	public int getId() {
@@ -122,6 +99,14 @@ public class Todo {
 		this.user_id = user_id;
 	}
 
+	public List<UserDTO> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserDTO> users) {
+		this.users = users;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -133,6 +118,7 @@ public class Todo {
 		result = prime * result + ((memo == null) ? 0 : memo.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + user_id;
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -144,7 +130,7 @@ public class Todo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Todo other = (Todo) obj;
+		TodoDTO other = (TodoDTO) obj;
 		if (dateCompleted == null) {
 			if (other.dateCompleted != null)
 				return false;
@@ -171,11 +157,14 @@ public class Todo {
 			return false;
 		if (user_id != other.user_id)
 			return false;
+		if (users == null) {
+			if (other.users != null)
+				return false;
+		} else if (!users.equals(other.users))
+			return false;
 		return true;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "Todo [id=" + id + ", title=" + title + "]";
-	}
 }

@@ -86,7 +86,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> updateDuck(@PathVariable("id") int id,
+	public ResponseEntity<UserDTO> updateUser(@PathVariable("id") int id,
 										   @RequestBody User user) {
 		UserDTO updatedUser = userService.updateUser(id, user);
 		

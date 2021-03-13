@@ -2,12 +2,14 @@ package com.qa.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 
 @Entity
 @Table(name = "user")
@@ -17,23 +19,27 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "firstName")
 	@NotNull
 	private String firstName;
-	
+
 	@NotNull
 	private String lastName;
-	
+
 	@Column(unique = true)
 	@NotNull
 	private String userName;
-	
+
 	@NotNull
 	private String password;
-	
+
+	@ManyToOne(targetEntity = Todo.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_todo_id")
+	private Todo todo;
+
 	public User() {
-		
+
 	}
 
 	public User(int id, @NotNull String firstName, @NotNull String lastName, @NotNull String userName,
@@ -131,6 +137,5 @@ public class User {
 			return false;
 		return true;
 	}
-	
-	
+
 }
