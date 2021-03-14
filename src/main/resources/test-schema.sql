@@ -17,10 +17,12 @@ CREATE TABLE todo (
 	dateCreated datetime not null,
 	dateCompleted datetime not null,
 	important boolean,
+	user_id integer,
+	fk_user_id integer,
 	primary key (id)
 );
 
 
 ALTER TABLE user add constraint UK_8qrhl5wlohdjoko9nrorkdjkp unique (password);
-ALTER TABLE user add constraint FKdtss7ab4sx4oagfqyacono43a foreign key (id) references todo on delete cascade;
+ALTER TABLE user add constraint FKdtss7ab4sx4oagfqyacono43a foreign key (fk_todo_id) references todo on delete cascade;
 #This is a comment

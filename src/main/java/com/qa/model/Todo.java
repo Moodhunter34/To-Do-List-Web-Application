@@ -1,7 +1,6 @@
 package com.qa.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "todo")
@@ -23,11 +22,12 @@ public class Todo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "todo_id")
 	private int id;
-
+	
+	@NotNull
 	private String title;
-
+	
 	private String memo;
-
+	
 	private Date dateCreated;
 
 	private Date dateCompleted;
@@ -36,10 +36,11 @@ public class Todo {
 
 	private int user_id;
 
-	@OneToMany(mappedBy = "todo", fetch = FetchType.LAZY, orphanRemoval = true)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private List<User> users;
 
+	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+	@JoinColumn(name = "fk_user_id")
+	private User user;
+	
 	public Todo() {
 
 	}
@@ -64,6 +65,14 @@ public class Todo {
 		this.dateCompleted = dateCompleted;
 		this.important = important;
 		this.user_id = user_id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getId() {

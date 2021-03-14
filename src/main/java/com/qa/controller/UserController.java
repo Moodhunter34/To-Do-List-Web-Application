@@ -74,6 +74,13 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
 	}
 	
+	@GetMapping("/userName/{userName}")
+	public ResponseEntity<UserDTO> getUserByUserName(@PathVariable("userName") String userName) {
+		UserDTO user = userService.readByUserName(userName);
+		
+		return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
+	}
+	
 	@PostMapping
 	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {
 		

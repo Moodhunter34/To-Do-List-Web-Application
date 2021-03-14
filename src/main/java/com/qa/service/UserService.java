@@ -50,7 +50,13 @@ public class UserService {
 	}
 	
 	public UserDTO readByFirstName(String firstName) {
-		User user =  userRepository.getUserByFirstNameSQL(firstName);
+		User user =  userRepository.getUserByFirstNameJPQL(firstName);
+		
+		return userMapper.mapToDTO(user);
+	}
+	
+	public UserDTO readByUserName(String userName) {
+		User user = userRepository.getUserByUserNameJPQL(userName);
 		
 		return userMapper.mapToDTO(user);
 	}
