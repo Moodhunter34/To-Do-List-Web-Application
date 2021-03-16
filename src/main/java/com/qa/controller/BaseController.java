@@ -13,7 +13,7 @@ public class BaseController {
 	@GetMapping("/test")
 	@ResponseBody
 	public UserDTO returnSomething() {
-		return new UserDTO(3,"nikos", "pap", "nikpap");
+		return new UserDTO(3,"nikos", "pap", "nikpap", null);
 	}
 
 }

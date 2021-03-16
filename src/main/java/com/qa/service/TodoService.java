@@ -4,6 +4,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import com.qa.mappers.TodoMapper;
 import com.qa.repository.TodoRepository;
 import com.qa.model.Todo;
 import com.qa.dto.TodoDTO;
+import com.qa.exceptions.TodoNotFoundException;
+import com.qa.exceptions.UserNotFoundException;
 
 @Service
 public class TodoService {
@@ -26,7 +29,6 @@ public class TodoService {
 		this.todoMapper = todoMapper;
 	}
 	
-	@Transactional
 	public List<TodoDTO> readAllTodos() {
 		List<Todo> todosInDb = todoRepository.findAll();
 		List<TodoDTO> returnables = new ArrayList<TodoDTO>();
@@ -54,5 +56,32 @@ public class TodoService {
 		boolean doesItStillExist = todoRepository.existsById(id);
 		
 		return !doesItStillExist;
+	}
+	
+	public TodoDTO readTodoByTitle(String title) {
+		Todo todo = todoRepository.getTodoByTitleJPQL(title);
+		
+		return todoMapper.mapToDTO(todo);
+	}
+	
+	public TodoDTO updateTodo(Integer id, Todo todo) throws EntityNotFoundException {
+		Optional<Todo> todoInDbOpt = todoRepository.findById(id);
+		Todo todoInDb;
+		
+		if (todoInDbOpt.isPresent()) {
+			todoInDb = todoInDbOpt.get();
+		} else {
+			throw new TodoNotFoundException("Todo not found");
+		}
+		
+		todoInDb.setTitle(todo.getTitle());
+		todoInDb.setMemo(todo.getMemo());
+		todoInDb.setDateCreated(todo.getDateCreated());
+		todoInDb.setDateCompleted(todo.getDateCompleted());
+		todoInDb.setImportant(todo.isImportant());
+		
+		Todo updatedTodo = todoRepository.save(todoInDb);
+		
+		return todoMapper.mapToDTO(updatedTodo);
 	}
 }

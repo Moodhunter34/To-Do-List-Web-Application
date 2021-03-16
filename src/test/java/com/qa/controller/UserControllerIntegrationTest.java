@@ -37,8 +37,8 @@ public class UserControllerIntegrationTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	private User validUser = new User(1, "Nikos", "Pap", "nikpap", "nik123");
-	private UserDTO userDTO = new UserDTO(1, "Nikos", "Pap", "nikpap");
+	private User validUser = new User(1, "Nikos", "Pap", "nikpap", "nik123", null);
+	private UserDTO userDTO = new UserDTO(1, "Nikos", "Pap", "nikpap", null);
 	
 	private List<User> validUsers = List.of(validUser);
 	private List<UserDTO> validUserDTOs = List.of(userDTO);
@@ -46,8 +46,8 @@ public class UserControllerIntegrationTest {
 	
 	@Test
 	public void createUserTest() throws Exception {
-		User userToSave = new User(2, "Vaggelos", "Miskos", "vag8", "vag890");
-		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8");
+		User userToSave = new User(2, "Vaggelos", "Miskos", "vag8", "vag890", null);
+		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8", null);
 		
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.POST, "/user");
@@ -118,8 +118,8 @@ public class UserControllerIntegrationTest {
 	
 	@Test
 	public void updateUserTest() throws Exception {
-		User updatedUser = new User(2, "Vaggelos", "Miskos", "vag8", "vag890");
-		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8");
+		User updatedUser = new User(2, "Vaggelos", "Miskos", "vag8", "vag890", null);
+		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8", null);
 		
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.PUT, "/duck/1");

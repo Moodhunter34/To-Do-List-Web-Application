@@ -1,5 +1,9 @@
 package com.qa.dto;
 
+import java.util.List;
+
+import com.qa.model.Todo;
+
 public class UserDTO {
 	
 	private int id;
@@ -10,16 +14,19 @@ public class UserDTO {
 	
 	private String userName;
 	
+	private List<TodoDTO> todos;
+	
 	public UserDTO() {
 		super();
 	}
 
-	public UserDTO(int id, String firstName, String lastName, String userName) {
+	public UserDTO(int id, String firstName, String lastName, String userName, List<TodoDTO> todos) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
+		this.todos = todos;
 	}
 
 	public int getId() {
@@ -54,49 +61,15 @@ public class UserDTO {
 		this.userName = userName;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		return result;
+	public List<TodoDTO> getTodos() {
+		return todos;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserDTO other = (UserDTO) obj;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		return true;
+	public void setTodos(List<TodoDTO> todos) {
+		this.todos = todos;
 	}
+
 	
-	@Override
-	public String toString() {
-		return "UserDTO [id=" + id + ", name=" + firstName + ", last Name=" + lastName + ", user name=" + userName + "]";
-	}
-
+	
+	
 }

@@ -3,8 +3,10 @@ package com.qa.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,8 @@ public class UserService {
 		List<User> users = userRepository.findAll();
 		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 		
-		users.forEach(user -> userDTOs.add(userMapper.mapToDTO(user)));
+	//	users.forEach(user -> userDTOs.add(userMapper.mapToDTO(user)));
+		userDTOs = users.stream().map(userMapper::mapToDTO).collect(Collectors.toList());
 		
 		return userDTOs;
 	}
