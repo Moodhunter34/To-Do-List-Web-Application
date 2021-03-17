@@ -17,14 +17,12 @@ public class TodoDTO {
 
 	private boolean important;
 
-	private List<UserDTO> user;
 
 	public TodoDTO() {
 		super();
 	}
 
-	public TodoDTO(int id, String title, String memo, Date dateCreated, Date dateCompleted, boolean important,
-			List<UserDTO> user) {
+	public TodoDTO(int id, String title, String memo, Date dateCreated, Date dateCompleted, boolean important) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -32,7 +30,6 @@ public class TodoDTO {
 		this.dateCreated = dateCreated;
 		this.dateCompleted = dateCompleted;
 		this.important = important;
-		this.user = user;
 	}
 
 	public int getId() {
@@ -81,14 +78,6 @@ public class TodoDTO {
 
 	public void setImportant(boolean important) {
 		this.important = important;
-	}
-
-	public List<UserDTO> getUser() {
-		return user;
-	}
-
-	public void setUser(List<UserDTO> user) {
-		this.user = user;
 	}
 
 	
