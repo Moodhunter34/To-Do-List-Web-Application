@@ -12,7 +12,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>To-Do-List-Web-Application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user-demo</name>
+	<name>Todo Project</name>
 	<description>Todo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
