@@ -61,6 +61,22 @@ public class UserServiceUnitTest {
 		verify(userRepository, times(1)).findAll();
 		verify(userMapper, times(1)).mapToDTO(validUser);
 	}
+	
+	@Test
+	public void readByIdTest() {
+		
+	}
+	
+	@Test
+	public void createUserTest() {
+		when(userRepository.save(Mockito.any(User.class))).thenReturn(validUser);
+		when(userMapper.mapToDTO(Mockito.any(User.class))).thenReturn(validUserDTO);
+		
+		assertThat(validUserDTO).isEqualTo(userService.createUser(validUser));
+		
+		verify(userRepository, times(1)).save(Mockito.any(User.class));
+		verify(userMapper, times(1)).mapToDTO(Mockito.any(User.class));
+	}
 
 	@Test
 	public void updateUserTest() {
@@ -76,6 +92,18 @@ public class UserServiceUnitTest {
 		UserDTO toTestDTO = userService.updateUser(validUser.getId(), updatedUser);
 
 		assertThat(updatedUserDTO).isEqualTo(toTestDTO);
+	}
+	
+	@Test
+	public void deleteUserTest() {
+		when(userRepository.existsById(Mockito.any(Integer.class)))
+			.thenReturn(true)
+			.thenReturn(false);
+		
+		assertThat(true).isEqualTo(userService.deleteUser(1));
+		
+		verify(userRepository, times(2)).existsById(Mockito.any(Integer.class));
+		verify(userRepository, times(1)).deleteById(Mockito.any(Integer.class));
 	}
 	
 

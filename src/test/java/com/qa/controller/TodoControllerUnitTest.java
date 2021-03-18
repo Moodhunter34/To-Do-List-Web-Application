@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -75,5 +76,44 @@ public class TodoControllerUnitTest {
 		assertThat(response).isEqualTo(todoController.getTodoByTitle(validTodo.getTitle()));
 		
 		verify(todoService, times(1)).readTodoByTitle(Mockito.any(String.class));
+	}
+	
+	@Test
+	public void createTodoTest() {
+		when(todoService.createTodo(Mockito.any(Todo.class))).thenReturn(validTodoDTO);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Location", String.valueOf(validTodoDTO.getId()));
+		
+		ResponseEntity<TodoDTO> response =
+				new ResponseEntity<TodoDTO>(validTodoDTO, headers, HttpStatus.CREATED);
+		
+		assertThat(response).isEqualTo(todoController.createTodo(validTodo));
+		
+		verify(todoService, times(1)).createTodo(Mockito.any(Todo.class));
+	}
+	
+	@Test
+	public void deleteTodoTest() {
+		when(todoService.deleteTodo(Mockito.any(Integer.class))).thenReturn(true);
+		
+		ResponseEntity<Boolean> response =
+				new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		
+		assertThat(response).isEqualTo(todoController.deleteTodo(validTodo.getId()));
+		
+		verify(todoService, times(1)).deleteTodo(Mockito.any(Integer.class));
+	}
+	
+	@Test
+	public void updateTodoTest() {
+		when(todoService.updateTodo(Mockito.any(Integer.class), Mockito.any(Todo.class))).thenReturn(validTodoDTO);
+		
+		ResponseEntity<TodoDTO> response =
+				new ResponseEntity<TodoDTO>(validTodoDTO, HttpStatus.OK);
+		
+		assertThat(response).isEqualTo(todoController.updateTodo(validTodo.getId(), validTodo));
+		
+		verify(todoService, times(1)).updateTodo(Mockito.any(Integer.class), Mockito.any(Todo.class));
 	}
 }
