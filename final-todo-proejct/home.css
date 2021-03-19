@@ -1,0 +1,39 @@
+.navbar {
+    background-color: rgb(240, 245, 241);
+}
+
+.navbar-brand {
+    margin-left: 50px;
+    font-size: 27px;
+    color: black;
+}
+
+.nav-item {
+    color: black;
+}
+
+.navbar-nav {
+    margin-left: 740px;
+    color: black;
+}
+
+.container {
+    text-align: center;
+    margin: 25px 50px 75px 100px;
+    max-width: 450px;
+    padding: 22px;
+    margin: auto;
+    margin-top: 125px;
+    margin-right: 200px;
+    
+}
+
+body {
+    background: url(stationary2.jpg) no-repeat center fixed;
+    background-size: cover;
+  }
+
+  .btn {
+      color: black;
+      background-color: inherit;
+  }
