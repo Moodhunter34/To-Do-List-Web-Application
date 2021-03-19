@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create todos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="createtodos.css"
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand" href="#">Todo Woo</a>
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Current</a>
+        <a class="nav-item nav-link one" href="#">Create</a>
+        <a class="nav-item nav-link two" href="#">Completed</a>
+        <a class="nav-item nav-link three" href="#">Logout</a>
+      </div>
+    </nav>
+    <div class="container">
+      <template id="single-post">
+        <li class="post-item">
+          <h2></h2>
+          <p></p>
+          <button>DELETE</button>
+        </li>
+      </template>
+      <div class="justify-content">
+        <h2>New Todo</h2>
+      </div>
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            class="form-control"
+            id="title"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="memo">Memo</label>
+          <textarea name="memo" class="form-control" id="memo"></textarea>
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            name="important"
+            class="form-check-input"
+            id="important"
+          />
+          <label class="form-check-label" for="important" id="imp">Important</label>
+        </div>
+        <button type="submit" class="btn btn-primary" id="savebutton">Save</button>
+      </form>
+      <section id="available-posts">
+        <button type="submit" id="fetch">FETCH POSTS</button>
+        <ul class="posts"></ul>
+      </section>
+    </div>
+    <script src="testtodos.js"></script>
+  </body>
+</html>

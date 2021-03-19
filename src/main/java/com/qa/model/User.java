@@ -32,11 +32,11 @@ public class User {
 	@NotNull
 	private String lastName;
 
-	@Column(unique = true)
-	@NotNull
+//	@Column(unique = true)
+//	@NotNull
 	private String userName;
 
-	@NotNull
+//	@NotNull
 	private String password;
 
 
