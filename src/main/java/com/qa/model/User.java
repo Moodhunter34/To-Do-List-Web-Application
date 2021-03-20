@@ -58,6 +58,16 @@ public class User {
 		this.password = password;
 		this.todos = todos;
 	}
+	
+	public User(int id, @NotNull String firstName, @NotNull String lastName, @NotNull String userName,
+			@NotNull String password) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
+	}
 
 	public int getId() {
 		return id;

@@ -37,7 +37,6 @@ public class Todo {
 	private boolean important;
 
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "fk_user_id")
 	private User user;
 	
 	public Todo() {

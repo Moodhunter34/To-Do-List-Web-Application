@@ -37,7 +37,7 @@ public class UserControllerIntegrationTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	private User validUser = new User(1, "Nikos", "Pap", "nikpap", "nik123", null);
+	private User validUser = new User(1, "Nikos", "Pap", "nikpap", "nik123");
 	private UserDTO userDTO = new UserDTO(1, "Nikos", "Pap", "nikpap", null);
 	
 	private List<User> validUsers = List.of(validUser);
@@ -46,7 +46,7 @@ public class UserControllerIntegrationTest {
 	
 	@Test
 	public void createUserTest() throws Exception {
-		User userToSave = new User(2, "Vaggelos", "Miskos", "vag8", "vag890", null);
+		User userToSave = new User(2, "Nikos", "Pap", "nikpap", "nik123");
 		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8", null);
 		
 		MockHttpServletRequestBuilder mockRequest = 
