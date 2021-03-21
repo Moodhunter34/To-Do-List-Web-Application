@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 public class TodoDTOTest {
 
 	private static TodoDTO testTodoDTO;
@@ -16,6 +18,11 @@ public class TodoDTOTest {
 	@BeforeEach
 	public void init() {
 		to = new TodoDTO(1, "Go hiking", "Go hiking on mount Olympus", true);
+	}
+	
+	@Test
+	public void testEquals() {
+		EqualsVerifier.simple().forClass(TodoDTO.class).verify();
 	}
 
 	@Test

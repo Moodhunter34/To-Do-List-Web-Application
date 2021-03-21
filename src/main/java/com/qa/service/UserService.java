@@ -48,6 +48,16 @@ public class UserService {
 		return userMapper.mapToDTO(newUser);
 	}
 	
+	public UserDTO readById(Integer id) {
+		Optional<User> user = userRepository.findById(id);
+		
+		if (user.isPresent()) {
+			return userMapper.mapToDTO(user.get());
+		} else {
+			throw new UserNotFoundException("User not found");
+		}
+	}
+	
 	public UserDTO updateUser(Integer id, User user) throws EntityNotFoundException {
 		Optional<User> userInDbOpt = userRepository.findById(id);
 		User userInDb;

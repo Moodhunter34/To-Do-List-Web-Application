@@ -7,14 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 public class TodoTest {
 
 	private static Todo testTodo;
-	
+
 	private User user;
-	
+
 	private Todo to;
-	
+
 	@BeforeEach
 	public void init() {
 		to = new Todo(1, "Walk the dog", "Walk the dog everyday day and night", true, user);
@@ -91,7 +93,10 @@ public class TodoTest {
 		to.setUser(user);
 		assertEquals(user, to.getUser());
 	}
-	
-	
+
+	@Test
+	public void testEquals() {
+		EqualsVerifier.simple().forClass(Todo.class).verify();
+	}
 
 }

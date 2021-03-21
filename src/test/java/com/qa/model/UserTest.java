@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 public class UserTest {
 
 	private static User testUser;
@@ -99,6 +101,11 @@ public class UserTest {
 	public void setTodosTest() {
 		us.setTodos(null);
 		assertEquals(null, us.getTodos());
+	}
+
+	@Test
+	public void testEquals() {
+		EqualsVerifier.simple().forClass(User.class).verify();
 	}
 	
 	

@@ -38,6 +38,7 @@ public class UserController {
 
 	@Autowired
 	public UserController(UserService userService) {
+		super();
 		this.userService = userService;
 	}
 
@@ -46,6 +47,14 @@ public class UserController {
 		List<UserDTO> data = userService.readAllUsers();
 
 		return new ResponseEntity<List<UserDTO>>(data, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Integer id) {
+		
+		UserDTO user = userService.readById(id);
+		
+		return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
 	}
 
 	@PostMapping

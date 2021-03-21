@@ -77,6 +77,15 @@ public class UserServiceUnitTest {
 		verify(userRepository, times(1)).save(Mockito.any(User.class));
 		verify(userMapper, times(1)).mapToDTO(Mockito.any(User.class));
 	}
+	
+	@Test
+	public void readByIdTest() {
+		when(userRepository.findById(Mockito.any(Integer.class))).thenReturn(Optional.of(validUser));
+		when(userMapper.mapToDTO(validUser)).thenReturn(validUserDTO);
+		
+		assertThat(validUser).isEqualTo(userService.readById(2));
+	}
+
 
 	@Test
 	public void updateUserTest() {

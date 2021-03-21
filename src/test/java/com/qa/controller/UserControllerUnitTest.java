@@ -31,6 +31,7 @@ public class UserControllerUnitTest {
 	@MockBean
 	private UserService userService;
 	
+	
 	private List<User> users;
 	private List<UserDTO> userDTOs;
 	
@@ -61,7 +62,17 @@ public class UserControllerUnitTest {
 		verify(userService, times(1)).readAllUsers();
 	}
 	
-	
+	@Test
+	public void getUserByIdTest() {
+		when(userService.readById(Mockito.any(Integer.class))).thenReturn(validUserDTO);
+		
+		ResponseEntity<UserDTO> response = 
+				new ResponseEntity<UserDTO>(validUserDTO, HttpStatus.OK);
+		
+		assertThat(response).isEqualTo(userController.getUserById(validUser.getId()));
+		
+		verify(userService, times(1)).readById(Mockito.any(Integer.class));
+	}
 	
 	@Test
 	public void createUserTest() {

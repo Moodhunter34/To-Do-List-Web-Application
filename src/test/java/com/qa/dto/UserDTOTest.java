@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 
 public class UserDTOTest {
 	
@@ -17,6 +19,11 @@ public class UserDTOTest {
 	@BeforeEach
 	public void init() {
 		 us = new UserDTO(1, "Nikos", "Pap", "nikpap", null);
+	}
+	
+	@Test
+	public void testEquals() {
+		EqualsVerifier.simple().forClass(UserDTO.class).verify();
 	}
 	
 	

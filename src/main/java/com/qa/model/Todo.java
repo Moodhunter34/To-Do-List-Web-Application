@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "todo")
 public class Todo {
@@ -28,13 +27,12 @@ public class Todo {
 
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	private User user;
-	
+
 	public Todo() {
-		
+
 	}
 
-	public Todo(int id, @NotNull String title, String memo, boolean important,
-			User user) {
+	public Todo(int id, @NotNull String title, String memo, boolean important, User user) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -42,7 +40,6 @@ public class Todo {
 		this.important = important;
 		this.user = user;
 	}
-
 
 	public int getId() {
 		return id;
@@ -126,8 +123,5 @@ public class Todo {
 			return false;
 		return true;
 	}
-	
-	
 
-	
 }
