@@ -42,28 +42,6 @@ public class UserService {
 		return userDTOs;
 	}
 	
-	public UserDTO readById(Integer id) {
-		Optional<User> user = userRepository.findById(id);
-		
-		if (user.isPresent()) {
-			return userMapper.mapToDTO(user.get());
-		} else {
-			throw new UserNotFoundException("User not found");
-		}
-	}
-	
-	public UserDTO readByFirstName(String firstName) {
-		User user =  userRepository.getUserByFirstNameJPQL(firstName);
-		
-		return userMapper.mapToDTO(user);
-	}
-	
-	public UserDTO readByUserName(String userName) {
-		User user = userRepository.getUserByUserNameJPQL(userName);
-		
-		return userMapper.mapToDTO(user);
-	}
-	
 	public UserDTO createUser(User user) {
 		User newUser = userRepository.save(user);
 		

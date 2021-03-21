@@ -61,20 +61,20 @@ public class UserServiceIntegrationTest {
 //		userDTOs.add(validUserDTO);
 
 		validUser = new User(1, "Nikos", "Pap", "nikpap", "nikpap8");
-		
-		validTodo = new Todo(1,"Go running", "Go for a run outside", true, user);
+
+		validTodo = new Todo(1, "Go running", "Go for a run outside", true, user);
 		validTodo.setUser(new User(1, "Nikos", "Pap", "nikpap", "nikpap8"));
-		
+
 		userRepository.deleteAll();
 		userRepository.flush();
-		
+
 		validUser = userRepository.saveAndFlush(validUser);
 		validTodo.setUser(validUser);
 		validTodo = todoRepository.saveAndFlush(validTodo);
-		
+
 		validTodoDTO = new TodoDTO(validTodo.getId(), "Go running", "Go for a run outside", true);
 		validUserDTO = new UserDTO(validUser.getId(), "Nikos", "Pap", "nikpap", List.of(validTodoDTO));
-		
+
 		users = List.of(validUser);
 		userDTOs = List.of(validUserDTO);
 
@@ -89,7 +89,18 @@ public class UserServiceIntegrationTest {
 
 	@Test
 	public void createUserTest() {
-		User newUser = new User(2, "Alex", "Gian", "alexg", "yeah23");
+		User newUser = new User(1, "Nikos", "Pap", "nikpap", "nikpap8");
+		UserDTO expectedUserDTO = userMapper.mapToDTO(newUser);
+
+		UserDTO savedUser = userService.createUser(newUser);
+		expectedUserDTO.setId(savedUser.getId());
+
+		assertThat(savedUser).isEqualTo(expectedUserDTO);
+	}
+
+	@Test
+	public void updateUserTest() {
+		User newUser = new User(1, "Nikos", "Pap", "nikpap", "nikpap8");
 		UserDTO expectedUserDTO = userMapper.mapToDTO(newUser);
 
 		UserDTO savedUser = userService.createUser(newUser);
@@ -100,25 +111,7 @@ public class UserServiceIntegrationTest {
 
 	@Test
 	public void deleteUserTest() {
-		assertThat(userService.deleteUser(1)).isEqualTo(true);
+		assertThat(true).isEqualTo(userService.deleteUser(validUser.getId()));
 	}
-	
-	@Test
-	public void readByIdTest() {
-	//	assertThat(userService.readById(1)).isEqualTo(1);
-		
-		UserDTO usersInDb = userService.readById(user.getId());
 
-		assertThat(userDTOs).isEqualTo(usersInDb);
-	}
-	
-	@Test
-	public void readByFirstNameTest() {
-		assertThat(userService.readByFirstName("Nikos")).isEqualTo("Nikos");
-	}
-	
-	@Test
-	public void readByUserNameTest() {
-		assertThat(userService.readByUserName("nikpap")).isEqualTo("nikpap");
-	}
 }

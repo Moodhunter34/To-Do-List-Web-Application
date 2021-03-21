@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class UserDTOTest {
 	
 	private static UserDTO testUserDTO;
@@ -17,6 +18,7 @@ public class UserDTOTest {
 	public void init() {
 		 us = new UserDTO(1, "Nikos", "Pap", "nikpap", null);
 	}
+	
 	
 	@Test
 	public void noArgsConstructorTest() {

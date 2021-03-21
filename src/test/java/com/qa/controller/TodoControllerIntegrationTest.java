@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.dto.TodoDTO;
 import com.qa.mappers.TodoMapper;
+import com.qa.mappers.UserMapper;
 import com.qa.model.Todo;
 import com.qa.model.User;
 
@@ -36,12 +37,17 @@ public class TodoControllerIntegrationTest {
 	private TodoMapper todoMapper;
 
 	@Autowired
+	private TodoController todoController;
+
+	@Autowired
+	private UserMapper userMapper;
+
+	@Autowired
 	private ObjectMapper objectMapper;
 
 	private User user;
 
-	private Todo validTodo = new Todo(1, "Walk the dog", "Walk the dog everyday day and night", false,
-			user);
+	private Todo validTodo = new Todo(1, "Walk the dog everyday day and night", "Walk the dog", false, user);
 	private TodoDTO todoDTO = new TodoDTO(1, "Walk the dog", "Walk the dog everyday day and night", false);
 
 	private List<Todo> validTodos = List.of(validTodo);
@@ -83,21 +89,8 @@ public class TodoControllerIntegrationTest {
 	}
 
 	@Test
-	public void getTodoByTitleTest() throws Exception {
-		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET,
-				"/todo/title/Walk the dog");
-		mockRequest.accept(MediaType.APPLICATION_JSON);
-
-		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
-		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(todoDTO));
-
-		mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-	}
-
-	@Test
 	public void updateTodoTest() throws Exception {
 		Todo updatedTodo = new Todo(1, "Walk the dog", "Walk the dog everyday day and night", false, user);
-
 		TodoDTO expectedTodo = new TodoDTO(1, "Walk the dog", "Walk the dog everyday day and night", false);
 
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT, "/todo/1");

@@ -20,66 +20,60 @@ import com.qa.exceptions.UserNotFoundException;
 public class TodoService {
 
 	private TodoRepository todoRepository;
-	
+
 	private TodoMapper todoMapper;
-	
+
 	@Autowired
 	public TodoService(TodoRepository todoRepository, TodoMapper todoMapper) {
 		this.todoRepository = todoRepository;
 		this.todoMapper = todoMapper;
 	}
-	
+
 	public List<TodoDTO> readAllTodos() {
 		List<Todo> todosInDb = todoRepository.findAll();
 		List<TodoDTO> returnables = new ArrayList<TodoDTO>();
-		
+
 		todosInDb.forEach(todo -> {
 			returnables.add(todoMapper.mapToDTO(todo));
 		});
-		
+
 		return returnables;
 	}
-	
+
 	public TodoDTO createTodo(Todo todo) {
 		Todo savedTodo = todoRepository.save(todo);
-		
+
 		return todoMapper.mapToDTO(savedTodo);
 	}
-	
+
 	public Boolean deleteTodo(Integer id) {
 		if (todoRepository.existsById(id)) {
 			todoRepository.deleteById(id);
 		} else {
 			throw new EntityNotFoundException();
 		}
-		
+
 		boolean doesItStillExist = todoRepository.existsById(id);
-		
+
 		return !doesItStillExist;
 	}
-	
-	public TodoDTO readTodoByTitle(String title) {
-		Todo todo = todoRepository.getTodoByTitleJPQL(title);
-		
-		return todoMapper.mapToDTO(todo);
-	}
-	
+
 	public TodoDTO updateTodo(Integer id, Todo todo) throws EntityNotFoundException {
 		Optional<Todo> todoInDbOpt = todoRepository.findById(id);
 		Todo todoInDb;
-		
+
 		if (todoInDbOpt.isPresent()) {
 			todoInDb = todoInDbOpt.get();
 		} else {
 			throw new TodoNotFoundException("Todo not found");
 		}
-		
+
 		todoInDb.setTitle(todo.getTitle());
 		todoInDb.setMemo(todo.getMemo());
 		todoInDb.setImportant(todo.isImportant());
-		
+
 		Todo updatedTodo = todoRepository.save(todoInDb);
-		
+
 		return todoMapper.mapToDTO(updatedTodo);
 	}
 }

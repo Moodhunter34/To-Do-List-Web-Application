@@ -26,94 +26,78 @@ import com.qa.service.TodoService;
 
 @SpringBootTest
 public class TodoControllerUnitTest {
-	
+
 	@Autowired
 	private TodoController todoController;
-	
+
 	@MockBean
 	private TodoService todoService;
-	
+
 	private List<Todo> todos;
 	private List<TodoDTO> todoDTOs;
-	
+
 	private Todo validTodo;
 	private TodoDTO validTodoDTO;
-	
+
 	private User user;
-	
+
 	@BeforeEach
 	public void init() {
 		user = new User();
-		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", false, user);
-		validTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", false);
-		
+		validTodo = new Todo(1, "Walk the dog", "Walk the dog everyday day and night", false, user);
+		validTodoDTO = new TodoDTO(1, "Walk the dog", "Walk the dog everyday day and night", false);
+
 		todos = new ArrayList<Todo>();
 		todoDTOs = new ArrayList<TodoDTO>();
-		
+
 		todos.add(validTodo);
 		todoDTOs.add(validTodoDTO);
 	}
-	
+
 	@Test
 	public void getAllTodosTest() {
 		when(todoService.readAllTodos()).thenReturn(todoDTOs);
-		
-		ResponseEntity<List<TodoDTO>> response = 
-				new ResponseEntity<List<TodoDTO>>(todoDTOs, HttpStatus.OK);
-		
+
+		ResponseEntity<List<TodoDTO>> response = new ResponseEntity<List<TodoDTO>>(todoDTOs, HttpStatus.OK);
+
 		assertThat(response).isEqualTo(todoController.getAllTodos());
-		
+
 		verify(todoService, times(1)).readAllTodos();
 	}
-	
-	@Test
-	public void getTodoByTitleTest() {
-		when(todoService.readTodoByTitle(Mockito.any(String.class))).thenReturn(validTodoDTO);
-		
-		ResponseEntity<TodoDTO> response =
-				new ResponseEntity<TodoDTO>(validTodoDTO, HttpStatus.OK);
-		
-		assertThat(response).isEqualTo(todoController.getTodoByTitle(validTodo.getTitle()));
-		
-		verify(todoService, times(1)).readTodoByTitle(Mockito.any(String.class));
-	}
-	
+
 	@Test
 	public void createTodoTest() {
 		when(todoService.createTodo(Mockito.any(Todo.class))).thenReturn(validTodoDTO);
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", String.valueOf(validTodoDTO.getId()));
-		
-		ResponseEntity<TodoDTO> response =
-				new ResponseEntity<TodoDTO>(validTodoDTO, headers, HttpStatus.CREATED);
-		
+
+		ResponseEntity<TodoDTO> response = new ResponseEntity<TodoDTO>(validTodoDTO, headers, HttpStatus.CREATED);
+
 		assertThat(response).isEqualTo(todoController.createTodo(validTodo));
-		
+
 		verify(todoService, times(1)).createTodo(Mockito.any(Todo.class));
 	}
-	
+
 	@Test
 	public void deleteTodoTest() {
 		when(todoService.deleteTodo(Mockito.any(Integer.class))).thenReturn(true);
-		
-		ResponseEntity<Boolean> response =
-				new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		
+
+		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.OK);
+
 		assertThat(response).isEqualTo(todoController.deleteTodo(validTodo.getId()));
-		
+
 		verify(todoService, times(1)).deleteTodo(Mockito.any(Integer.class));
 	}
-	
+
 	@Test
 	public void updateTodoTest() {
 		when(todoService.updateTodo(Mockito.any(Integer.class), Mockito.any(Todo.class))).thenReturn(validTodoDTO);
-		
-		ResponseEntity<TodoDTO> response =
-				new ResponseEntity<TodoDTO>(validTodoDTO, HttpStatus.OK);
-		
+
+		ResponseEntity<TodoDTO> response = new ResponseEntity<TodoDTO>(validTodoDTO, HttpStatus.OK);
+
 		assertThat(response).isEqualTo(todoController.updateTodo(validTodo.getId(), validTodo));
-		
+
 		verify(todoService, times(1)).updateTodo(Mockito.any(Integer.class), Mockito.any(Todo.class));
 	}
 }

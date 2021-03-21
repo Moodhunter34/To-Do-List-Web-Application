@@ -61,53 +61,7 @@ public class UserControllerUnitTest {
 		verify(userService, times(1)).readAllUsers();
 	}
 	
-	@Test
-	public void getUserByIdTest() {
-		when(userService.readById(Mockito.any(Integer.class))).thenReturn(validUserDTO);
-		
-		ResponseEntity<UserDTO> response = 
-				new ResponseEntity<UserDTO>(validUserDTO, HttpStatus.OK);
-		
-		assertThat(response).isEqualTo(userController.getUserById(validUser.getId()));
-		
-		verify(userService, times(1)).readById(Mockito.any(Integer.class));
-	}
 	
-	@Test
-	public void getUserByIdAltTest() {
-		when(userService.readById(Mockito.any(Integer.class))).thenReturn(validUserDTO);
-		
-		ResponseEntity<UserDTO> response =
-				new ResponseEntity<UserDTO>(validUserDTO, HttpStatus.OK);
-		
-		assertThat(response).isEqualTo(userController.getUserByIdAlt(validUser.getId()));
-		
-		verify(userService, times(1)).readById(Mockito.any(Integer.class));
-	}
-	
-	@Test
-	public void getUserByFirstNameTest() {
-		when(userService.readByFirstName(Mockito.any(String.class))).thenReturn(validUserDTO);
-		
-		ResponseEntity<UserDTO> response = 
-				new ResponseEntity<UserDTO>(validUserDTO, HttpStatus.OK);
-		
-		assertThat(response).isEqualTo(userController.getUserByFirstName(validUser.getFirstName()));
-		
-		verify(userService, times(1)).readByFirstName(Mockito.any(String.class));
-	}
-	
-	@Test
-	public void getUserByUserNameTest() {
-		when(userService.readByUserName(Mockito.any(String.class))).thenReturn(validUserDTO);
-		
-		ResponseEntity<UserDTO> response = 
-				new ResponseEntity<UserDTO>(validUserDTO, HttpStatus.OK);
-		
-		assertThat(response).isEqualTo(userController.getUserByUserName(validUser.getUserName()));
-		
-		verify(userService, times(1)).readByUserName(Mockito.any(String.class));
-	}
 	
 	@Test
 	public void createUserTest() {

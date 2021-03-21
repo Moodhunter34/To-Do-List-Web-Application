@@ -17,13 +17,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	public User findByUserName(String userName);
 	
-	@Query("SELECT us FROM User us WHERE us.userName = ?1")
-	public User getUserByUserNameJPQL(String userName);
+//	@Query("SELECT us FROM User us WHERE us.userName = ?1")
+//	public User getUserByUserNameJPQL(String userName);
 	
 	// JPQL and Native Queries can be passed parameters in the same way
 	// - Uses '?<num>' syntax to select the corresponding parameter from the method
 	// parameters
-	@Query("SELECT u FROM User u WHERE u.firstName = ?1")
-	public User getUserByFirstNameJPQL(String firstName);
+//	@Query("SELECT u FROM User u WHERE u.firstName = ?1")
+//	public User getUserByFirstNameJPQL(String firstName);
 
 }

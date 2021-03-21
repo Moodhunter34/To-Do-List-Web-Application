@@ -11,7 +11,7 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
 	public Todo findByTitle(String title);
 	
-	@Query("SELECT t FROM Todo t WHERE t.title = ?1")
-	public Todo getTodoByTitleJPQL(String title);
-	
+//	@Query("SELECT t FROM Todo t WHERE t.title = ?1")
+//	public Todo getTodoByTitleJPQL(String title);
+//	
 }

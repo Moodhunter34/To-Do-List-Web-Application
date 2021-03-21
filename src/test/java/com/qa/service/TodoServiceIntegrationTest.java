@@ -84,8 +84,15 @@ public class TodoServiceIntegrationTest {
 	
 	@Test
 	public void deleteTodoTest() {
-		assertThat(todoService.deleteTodo(1)).isEqualTo(true);
+		assertThat(true).isEqualTo(todoService.deleteTodo(validTodo.getId()));
 	}
 	
+	@Test
+	public void updateTodoTest() {
+		Todo newTodo = new Todo(validTodo.getId(), "Walk the dog", "Walk the dog everyday day and night", false, validuser);
+		TodoDTO newTodoDTO = todoMapper.mapToDTO(newTodo);
+		TodoDTO valTodoDTO = todoService.updateTodo(validTodo.getId(), newTodo);
+		assertThat(newTodoDTO).isEqualTo(valTodoDTO);
+	}
 	
 }
