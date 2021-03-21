@@ -11,7 +11,7 @@
       integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="createtodos.css"
+    <link rel="stylesheet" href="createuser.css"
   </head>
   <body>
     <nav class="navbar navbar-expand-lg">
@@ -29,6 +29,9 @@
         <li class="post-item">
           <h2></h2>
           <h3></h3>
+          <h4></h4>
+          <h5></h5>
+          <p></p>
           <button>DELETE USER</button>
         </li>
       </template>
@@ -56,6 +59,23 @@
               required
             />
           </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              name="username"
+              class="form-control"
+              id="username"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="password"
+            />
         <button type="submit" class="btn btn-primary" id="savebutton">
           Save
         </button>
@@ -65,6 +85,6 @@
         <ul class="posts"></ul>
       </section>
     </div>
-    <script src="todoscontroller.js"></script>
+    <script src="usercontroller.js"></script>
   </body>
 </html>

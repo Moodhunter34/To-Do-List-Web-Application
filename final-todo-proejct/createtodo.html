@@ -16,18 +16,20 @@
   <body>
     <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand" href="#">Todo Woo</a>
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="#">Current</a>
-        <a class="nav-item nav-link one" href="#">Create</a>
-        <a class="nav-item nav-link two" href="#">Completed</a>
-        <a class="nav-item nav-link three" href="#">Logout</a>
-      </div>
-    </nav>
+      <a class="nav-item nav-link" href="#">Create</a>
+      <a class="nav-item nav-link" href="#">Completed</a>
+      <a class="nav-item nav-link" href="#">Support</a>
+        <div class="navbar-nav">
+
+          <a class="nav-item nav-link" href="#">Logout</a>
+        </div>
+  </nav>
     <div class="container">
       <template id="single-post">
         <li class="post-item">
           <h2></h2>
           <p></p>
+          <h4></h4>
           <button>DELETE</button>
         </li>
       </template>
@@ -48,6 +50,15 @@
         <div class="form-group">
           <label for="memo">Memo</label>
           <textarea name="memo" class="form-control" id="memo"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="user_id">User Id</label>
+          <input
+            type="text"
+            name="user_id"
+            class="form-control"
+            id="user_id"
+          />
         </div>
         <div class="form-group form-check">
           <input

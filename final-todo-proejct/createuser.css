@@ -16,9 +16,9 @@ button {
   font: inherit;
   border: 1px solid #000053;
   color: white;
-  background: #000053;
+  background: rgb(49, 89, 153);
   padding: 0.5rem 1.5rem;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -30,6 +30,10 @@ button:hover,
 button:active {
   background: #12128a;
   border-color: #12128a;
+}
+
+label {
+  float: left;
 }
 
 label,
@@ -90,13 +94,10 @@ section {
 }
 
 .form-control {
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   background-color: inherit;
 }
 
-label {
-  float: left;
-}
 
 .posts {
   list-style: none;
@@ -135,3 +136,4 @@ label {
   margin-top: 22px;
   margin-right: 350px;
 }
+

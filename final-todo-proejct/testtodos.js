@@ -2,6 +2,7 @@
 
 const getTitle = document.querySelector("#title");
 const getmemo = document.querySelector("#memo");
+const getUserId = document.querySelector("#user_id");
 const getimp = document.querySelector("#imp");
 const saveButton = document.querySelector("#savebutton");
 const fetchButton = document.querySelector("#fetch");
@@ -45,7 +46,7 @@ async function fetchPosts() {
       const postEl = document.importNode(postTemplate.content, true);
       postEl.querySelector("h2").textContent = post.title.toUpperCase();
       postEl.querySelector("p").textContent = post.memo;
-      postEl.querySelector("li").id = post.id;
+       postEl.querySelector("li").id = post.id;
       listElement.append(postEl);
     }
   } catch (error) {
@@ -53,10 +54,11 @@ async function fetchPosts() {
   }
 }
 
-async function createPost(title, memo) {
+async function createPost(title, memo, user_id) {
   const post = {
     title: title,
     memo: memo,
+    user: {id :user_id}
   };
 
   sendHttpRequest("POST", `http://localhost:8080/todo/`, post);
@@ -67,8 +69,9 @@ saveButton.addEventListener("click", (event) => {
   event.preventDefault();
   const eneteredTitle = getTitle.value;
   const enteredMemo = getmemo.value;
+  const enteredUserId = getUserId.value;
 
-  createPost(eneteredTitle, enteredMemo);
+  createPost(eneteredTitle, enteredMemo, enteredUserId);
 });
 
 postList.addEventListener("click", (event) => {

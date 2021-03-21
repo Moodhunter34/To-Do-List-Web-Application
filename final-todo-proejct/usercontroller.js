@@ -2,12 +2,15 @@
 
 const getFirstName = document.querySelector("#firstname");
 const getLastName = document.querySelector("#lastname");
+const getUserName = document.querySelector("#username");
 const saveButton = document.querySelector("#savebutton");
 const fetchButton = document.querySelector("#fetch");
 const postTemplate = document.getElementById("single-post");
 const listElement = document.querySelector(".posts");
 const postList = document.querySelector("ul");
 
+
+//  created function to call different methods, url's and respective data
 function sendHttpRequest(method, url, data) {
   return fetch(url, {
     method: method,
@@ -32,6 +35,7 @@ function sendHttpRequest(method, url, data) {
     });
 }
 
+
 async function fetchPosts() {
   try {
     const responseData = await sendHttpRequest(
@@ -44,7 +48,12 @@ async function fetchPosts() {
       const postEl = document.importNode(postTemplate.content, true);
       postEl.querySelector("h2").textContent = us.firstName;
       postEl.querySelector("h3").textContent = us.lastName;
-      postEl.querySelector("li").id = us.id;
+  //    postEl.querySelector("p").textContent = us.userName;
+      const myJSON = JSON.stringify(us.todos);
+      postEl.querySelector("h4").textContent = myJSON;
+      console.log(us.todos);
+      console.log(myJSON);
+      postEl.querySelector("li").id = us.id;    //gets id of the user
       listElement.append(postEl);
     }
   } catch (error) {
@@ -52,13 +61,14 @@ async function fetchPosts() {
   }
 }
 
-async function createPost(firstName, lastName) {
+async function createPost(firstName, lastName, userName) {
   const post = {
     firstName: firstName,
     lastName: lastName,
+    userName: userName
   };
 
-  sendHttpRequest("POST", `http://localhost:8080/user/`, post);
+ await sendHttpRequest("POST", `http://localhost:8080/user/`, post);
 }
 fetchButton.addEventListener("click", fetchPosts);
 
@@ -66,8 +76,9 @@ saveButton.addEventListener("click", (event) => {
   event.preventDefault();
   const eneteredFirstName = getFirstName.value;
   const enteredLastName = getLastName.value;
+  const enteredUserName =getUserName.value;
 
-  createPost(eneteredFirstName, enteredLastName);
+  createPost(eneteredFirstName, enteredLastName, enteredUserName);
 });
 
 postList.addEventListener("click", (event) => {
