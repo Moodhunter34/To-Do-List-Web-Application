@@ -11,24 +11,17 @@ public class TodoDTO {
 
 	private String memo;
 
-	private Date dateCreated;
-
-	private Date dateCompleted;
-
 	private boolean important;
-
 
 	public TodoDTO() {
 		super();
 	}
 
-	public TodoDTO(int id, String title, String memo, Date dateCreated, Date dateCompleted, boolean important) {
+	public TodoDTO(int id, String title, String memo, boolean important) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.memo = memo;
-		this.dateCreated = dateCreated;
-		this.dateCompleted = dateCompleted;
 		this.important = important;
 	}
 
@@ -56,22 +49,6 @@ public class TodoDTO {
 		this.memo = memo;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Date getDateCompleted() {
-		return dateCompleted;
-	}
-
-	public void setDateCompleted(Date dateCompleted) {
-		this.dateCompleted = dateCompleted;
-	}
-
 	public boolean isImportant() {
 		return important;
 	}
@@ -79,7 +56,5 @@ public class TodoDTO {
 	public void setImportant(boolean important) {
 		this.important = important;
 	}
-
-	
 
 }

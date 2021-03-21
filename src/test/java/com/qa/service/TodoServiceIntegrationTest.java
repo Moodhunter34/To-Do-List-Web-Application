@@ -2,7 +2,6 @@ package com.qa.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class TodoServiceIntegrationTest {
 	
 	@BeforeEach
 	public void init() {
-		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false, validuser);
+		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", false, validuser);
 		
 		todos = new ArrayList<Todo>();
 		todoDTOs = new ArrayList<TodoDTO>();
@@ -71,4 +70,22 @@ public class TodoServiceIntegrationTest {
 		
 		assertThat(todoDTOs).isEqualTo(todosInDb);
 	}
+	
+	@Test
+	public void createTodoTest() {
+		Todo newTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", false, validuser);
+		TodoDTO expectedTodoDTO = todoMapper.mapToDTO(newTodo);
+
+		TodoDTO savedTodo = todoService.createTodo(newTodo);
+		expectedTodoDTO.setId(savedTodo.getId());
+
+		assertThat(savedTodo).isEqualTo(expectedTodoDTO);
+	}
+	
+	@Test
+	public void deleteTodoTest() {
+		assertThat(todoService.deleteTodo(1)).isEqualTo(true);
+	}
+	
+	
 }

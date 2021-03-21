@@ -11,26 +11,31 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.qa.dto.UserDTO;
 import com.qa.mappers.UserMapper;
 import com.qa.model.User;
 import com.qa.repository.UserRepository;
 
-@SpringBootTest
+//@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserServiceUnitTest {
 
-	@Autowired
+//	@Autowired
+	@InjectMocks
 	private UserService userService;
 
-	@MockBean
+//	@MockBean
+	@Mock
 	private UserRepository userRepository;
 
-	@MockBean
+//	@MockBean
+	@Mock
 	private UserMapper userMapper;
 
 	private List<User> users;
@@ -64,7 +69,27 @@ public class UserServiceUnitTest {
 	
 	@Test
 	public void readByIdTest() {
+		when(userRepository.findById(Mockito.any(Integer.class))).thenReturn(Optional.of(validUser));
+		when(userMapper.mapToDTO(validUser)).thenReturn(validUserDTO);
 		
+		assertThat(validUser).isEqualTo(userService.readById(2));
+	}
+
+	@Test
+	public void readByFirstNameTest() {
+		when(userRepository.findByFirstName(Mockito.any(String.class))).thenReturn(validUser);
+		when(userMapper.mapToDTO(validUser)).thenReturn(validUserDTO);
+		
+		assertThat(validUser).isEqualTo(userService.readByFirstName("Nikos"));
+		
+	}
+	
+	@Test
+	public void readByUserNameTest() {
+		when(userRepository.findByUserName(Mockito.any(String.class))).thenReturn(validUser);
+		when(userMapper.mapToDTO(validUser)).thenReturn(validUserDTO);
+		
+		assertThat(validUser).isEqualTo(userService.readByUserName("nikpap"));
 	}
 	
 	@Test

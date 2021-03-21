@@ -1,7 +1,5 @@
 package com.qa.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -28,12 +24,6 @@ public class Todo {
 
 	private String memo;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dateCreated;
-
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dateCompleted;
-
 	private boolean important;
 
 	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
@@ -43,14 +33,12 @@ public class Todo {
 		
 	}
 
-	public Todo(int id, @NotNull String title, String memo, Date dateCreated, Date dateCompleted, boolean important,
+	public Todo(int id, @NotNull String title, String memo, boolean important,
 			User user) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.memo = memo;
-		this.dateCreated = dateCreated;
-		this.dateCompleted = dateCompleted;
 		this.important = important;
 		this.user = user;
 	}
@@ -80,22 +68,6 @@ public class Todo {
 		this.memo = memo;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
-	}
-
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-
-	public Date getDateCompleted() {
-		return dateCompleted;
-	}
-
-	public void setDateCompleted(Date dateCompleted) {
-		this.dateCompleted = dateCompleted;
-	}
-
 	public boolean isImportant() {
 		return important;
 	}
@@ -116,8 +88,6 @@ public class Todo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dateCompleted == null) ? 0 : dateCompleted.hashCode());
-		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + id;
 		result = prime * result + (important ? 1231 : 1237);
 		result = prime * result + ((memo == null) ? 0 : memo.hashCode());
@@ -135,16 +105,6 @@ public class Todo {
 		if (getClass() != obj.getClass())
 			return false;
 		Todo other = (Todo) obj;
-		if (dateCompleted == null) {
-			if (other.dateCompleted != null)
-				return false;
-		} else if (!dateCompleted.equals(other.dateCompleted))
-			return false;
-		if (dateCreated == null) {
-			if (other.dateCreated != null)
-				return false;
-		} else if (!dateCreated.equals(other.dateCreated))
-			return false;
 		if (id != other.id)
 			return false;
 		if (important != other.important)

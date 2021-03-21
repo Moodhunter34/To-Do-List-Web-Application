@@ -46,8 +46,8 @@ public class UserControllerIntegrationTest {
 	
 	@Test
 	public void createUserTest() throws Exception {
-		User userToSave = new User(2, "Nikos", "Pap", "nikpap", "nik123");
-		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8", null);
+		User userToSave = new User(2, "Nikos2", "Pap1", "nikpap8", "nik123");
+		UserDTO expectedUser = new UserDTO(2, "Nikos2", "Pap1", "nikpap8", null);
 		
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.POST, "/user");
@@ -88,7 +88,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	public void getUserByIdTest() throws Exception {
 		MockHttpServletRequestBuilder mockRequest = 
-				MockMvcRequestBuilders.request(HttpMethod.GET, "/user/1");
+				MockMvcRequestBuilders.request(HttpMethod.GET, "/user/2");
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 		
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
@@ -105,7 +105,7 @@ public class UserControllerIntegrationTest {
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.GET, "/user/alt");
 		mockRequest.accept(MediaType.APPLICATION_JSON);
-		mockRequest.queryParam("id", "1");
+		mockRequest.queryParam("id", "2");
 		
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 		ResultMatcher contentMatcher = MockMvcResultMatchers.content()
@@ -118,11 +118,11 @@ public class UserControllerIntegrationTest {
 	
 	@Test
 	public void updateUserTest() throws Exception {
-		User updatedUser = new User(2, "Vaggelos", "Miskos", "vag8", "vag890", null);
-		UserDTO expectedUser = new UserDTO(2, "Vaggelos", "Miskos", "vag8", null);
+		User updatedUser = new User(2, "Nikos2", "Pap1", "nikpap8", "nik123");
+		UserDTO expectedUser = new UserDTO(2, "Nikos2", "Pap1", "nikpap8", null);
 		
 		MockHttpServletRequestBuilder mockRequest = 
-				MockMvcRequestBuilders.request(HttpMethod.PUT, "/duck/1");
+				MockMvcRequestBuilders.request(HttpMethod.PUT, "/user/2");
 		
 		mockRequest.contentType(MediaType.APPLICATION_JSON); 
 		mockRequest.content(objectMapper.writeValueAsString(updatedUser)); // sending User in
@@ -143,7 +143,7 @@ public class UserControllerIntegrationTest {
 	@Test
 	public void deleteUserTest() throws Exception {
 		MockHttpServletRequestBuilder mockRequest = 
-				MockMvcRequestBuilders.request(HttpMethod.DELETE, "/user/1");
+				MockMvcRequestBuilders.request(HttpMethod.DELETE, "/user/2");
 		mockRequest.accept(MediaType.APPLICATION_JSON);
 		
 		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();

@@ -76,8 +76,6 @@ public class TodoService {
 		
 		todoInDb.setTitle(todo.getTitle());
 		todoInDb.setMemo(todo.getMemo());
-		todoInDb.setDateCreated(todo.getDateCreated());
-		todoInDb.setDateCompleted(todo.getDateCompleted());
 		todoInDb.setImportant(todo.isImportant());
 		
 		Todo updatedTodo = todoRepository.save(todoInDb);

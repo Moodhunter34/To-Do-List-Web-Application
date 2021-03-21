@@ -44,8 +44,8 @@ public class TodoControllerUnitTest {
 	@BeforeEach
 	public void init() {
 		user = new User();
-		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false, user);
-		validTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false);
+		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", false, user);
+		validTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", false);
 		
 		todos = new ArrayList<Todo>();
 		todoDTOs = new ArrayList<TodoDTO>();

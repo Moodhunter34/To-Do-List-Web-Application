@@ -11,6 +11,8 @@ import com.qa.model.User;
 @Component
 public class UserMapper {
 	
+	
+	
 	private ModelMapper modelMapper;
 	
 	@Autowired

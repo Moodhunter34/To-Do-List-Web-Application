@@ -12,10 +12,11 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.qa.dto.TodoDTO;
 import com.qa.mappers.TodoMapper;
@@ -23,16 +24,20 @@ import com.qa.model.Todo;
 import com.qa.model.User;
 import com.qa.repository.TodoRepository;
 
-@SpringBootTest
+//@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class TodoServiceUnitTest {
 	
-	@Autowired
+//	@Autowired
+	@InjectMocks
 	private TodoService todoService;
 	
-	@MockBean
+//	@MockBean
+	@Mock
 	private TodoRepository todoRepository;
 	
-	@MockBean
+//	@MockBean
+	@Mock
 	private TodoMapper todoMapper;
 	
 	private List<Todo> todos;
@@ -46,8 +51,8 @@ public class TodoServiceUnitTest {
 	@BeforeEach
 	public void init() {
 		user = new User();
-		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false, user);
-		validTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false);
+		validTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", false, user);
+		validTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", false);
 		
 		todos = new ArrayList<Todo>();
 		todoDTOs= new ArrayList<TodoDTO>();
@@ -92,12 +97,13 @@ public class TodoServiceUnitTest {
 	
 	@Test
 	public void readTodoByTitleTest() {
+		
 	}
 	
 	@Test
 	public void updateTodoTest() {
-		Todo updatedTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false, user);
-		TodoDTO updatedTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", Date.valueOf("2020-10-15"), Date.valueOf("2021-03-16"), false);
+		Todo updatedTodo = new Todo(1,"Walk the dog", "Walk the dog everyday day and night", false, user);
+		TodoDTO updatedTodoDTO = new TodoDTO(1,"Walk the dog", "Walk the dog everyday day and night", false);
 		
 		when(todoRepository.findById(Mockito.any(Integer.class))).thenReturn(Optional.of(validTodo));
 		
