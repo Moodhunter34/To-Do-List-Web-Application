@@ -2,7 +2,6 @@ package com.qa.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,21 +44,6 @@ public class UserServiceIntegrationTest {
 
 	@BeforeEach
 	public void init() {
-//		validUser = new User(1, "Nikos", "Pap", "nikpap", "nik123", null);
-//		validUserDTO = new UserDTO(1, "Nikos", "Pap", "nikpap", null);
-//
-//		users = new ArrayList<User>();
-//		userDTOs = new ArrayList<UserDTO>();
-//
-//		userRepository.deleteAll();
-//
-//		validUser = userRepository.save(validUser);
-//
-//		validUserDTO = userMapper.mapToDTO(validUser);
-//
-//		users.add(validUser);
-//		userDTOs.add(validUserDTO);
-
 		validUser = new User(1, "Nikos", "Pap", "nikpap", "nikpap8");
 
 		validTodo = new Todo(1, "Go running", "Go for a run outside", true, user);
@@ -83,6 +67,15 @@ public class UserServiceIntegrationTest {
 	@Test
 	public void readAllUsersTest() {
 		List<UserDTO> usersInDb = userService.readAllUsers();
+
+		assertThat(userDTOs).isEqualTo(usersInDb);
+	}
+
+	@Test
+	public void readByIdTest() {
+		// assertThat(userService.readById(1)).isEqualTo(1);
+
+		UserDTO usersInDb = userService.readById(user.getId());
 
 		assertThat(userDTOs).isEqualTo(usersInDb);
 	}

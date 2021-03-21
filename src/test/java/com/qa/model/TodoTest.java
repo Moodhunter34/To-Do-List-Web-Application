@@ -94,9 +94,4 @@ public class TodoTest {
 		assertEquals(user, to.getUser());
 	}
 
-	@Test
-	public void testEquals() {
-		EqualsVerifier.simple().forClass(Todo.class).verify();
-	}
-
 }

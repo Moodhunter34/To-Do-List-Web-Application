@@ -29,9 +29,6 @@ public class TodoServiceIntegrationTest {
 	private TodoRepository todoRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
 	private TodoMapper todoMapper;
 	
 	private List<Todo> todos;
@@ -41,7 +38,6 @@ public class TodoServiceIntegrationTest {
 	private TodoDTO validTodoDTO;
 	
 	private User validuser;
-	private UserDTO validUserDTO;
 	
 	@BeforeEach
 	public void init() {
