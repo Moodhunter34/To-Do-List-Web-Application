@@ -1,6 +1,11 @@
+Coverage: src/main/java 93%
+
+# Project Title
+To-do List Web Application(TDL)
+
 # Introduction
 
-This repository contains code used for the delivery of Spring Boot for the 21JANSDET2 cohort.
+This repository contains code for the Todo- List Project List for QA.
 
 ## How to run the application without compiling to a jar file
 
@@ -23,37 +28,11 @@ mvn spring-boot:run
 mvn package
 
 // Runs the jar file using your local installation of Java
-java -jar target/duck-demo-0.0.0-SNAPSHOT.java
+java -jar target/To-Do-List-Web-Application-0.0.0-SNAPSHOT.java
 ```
 
-## Installing Spring Boot Tool Suite using the Eclipse Marketplace
-
-1. Navigate to the Eclipse Marketplace
-
-![image](https://user-images.githubusercontent.com/67016030/110522062-69390c80-8108-11eb-9e7d-e8fbfd56a0dc.png)
-
-2. Search for 'Spring Tools Suite', install the relevant version
-
-![image](https://user-images.githubusercontent.com/67016030/110522342-b2895c00-8108-11eb-8f95-5e0ec832b5bb.png)
-
-## Creating a new Spring Boot project
-
-1. Navigate to `File -> New -> Other`
-
-![image](https://user-images.githubusercontent.com/67016030/110522797-393e3900-8109-11eb-960e-d70c126e3ea8.png)
 
 
-2. Search for `Spring` and select `Spring Starter Project`
-
-![image](https://user-images.githubusercontent.com/67016030/110522858-49561880-8109-11eb-90f4-7dcfa5d5b887.png)
-
-3. Configure your project settings
-
-![image](https://user-images.githubusercontent.com/67016030/110522968-6db1f500-8109-11eb-9aa6-df0cb7c7d901.png)
-
-4. Select any dependencies you might need, the following selected in the image are good for a simple REST API
-
-![image](https://user-images.githubusercontent.com/67016030/110523205-b23d9080-8109-11eb-83a6-b23407cd3c24.png)
 
 ## What is a Spring Bean
 
@@ -83,20 +62,15 @@ We can also apply `@Component` to a class to indicate it should be registered as
 
 ```
 @SpringBootApplication
-public class DuckDemoApplication {
+public class ToDoListWebApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(DuckDemoApplication.class, args);
+		ApplicationContext context = SpringApplication.run(ToDoListWebApplication.class, args);
 	}
 
 }
 ```
 
-## The application.properties file
-
-The `application.properties` file is a configuration file that we can use to customise the pre-defined configurations supplied by Spring + Spring Boot. The file is located in the `src/main/resources` source package.
-
-![image](https://user-images.githubusercontent.com/67016030/110528691-56c2d100-8110-11eb-8c7a-099c91c8ae3c.png)
 
 Our properties are supplied in the form of key-value pairs:
 
@@ -108,9 +82,6 @@ This property changes the port.
 
 ### Multiple property files
 
-As you may have seen in the prior image, there are multiple property files.
-
-![image](https://user-images.githubusercontent.com/67016030/110528703-588c9480-8110-11eb-9b86-2043199a90f3.png)
 
 The root property file, `application.properties`, will always be acknowledged by Spring Boot. Any properties file that begins with `application`, and is suffixed with a `-<name>.properties`, will be available for selection. This allows us to have production and test configurations for our applications.
 
@@ -126,19 +97,19 @@ Spring is an Inversion of Control container, and it manages beans in the applica
 
 ```
 @Service
-public class SomeService {
+public class UserService {
 
 }
 
 @RestController
-public class SomeController {
+public class UserController {
 
   // We could use @Autowired here as well, this would then be field injection
-  private SomeService someService;
+  private UserService userService;
   
-  @Autowired // Using constructor injection to request the `SomeService` Service bean from the application context when creating this object
-  public SomeController(SomeService someService) {
-    this.someService = someService;
+  @Autowired // Using constructor injection to request the `UserService` Service bean from the application context when creating this object
+  public UserController(UserService userService) {
+    this.userService = userService;
   }
 }
 ```
@@ -151,12 +122,12 @@ A basic controller can be defined using the `@Controller` annotation, but by its
 
 ```
 @Controller
-public class BaseController {
+public class UserController {
 
-	@GetMapping("/test")
+	@GetMapping("/user")
 	@ResponseBody
-	public DuckDTO returnSomething() {
-		return new DuckDTO(23, "Fred", "Red", "Beach");
+	public UserDTO returnSomething() {
+		return new UserDTO(2, "Nikos", "Pap", "nikospap8");
 	}
 	
 }
@@ -169,28 +140,28 @@ A simplification of this process is to use the `@RestController` annotation, whi
 
 ```
 @RestController
-@RequestMapping(path = "/duck")
-public class DuckController {
+@RequestMapping(path = "/todo")
+public class TodoController {
 	
-	private DuckService duckService;
+	private TodoService todoService;
 	
 	@Autowired // constructor injection
-	public DuckController(DuckService duckService) {
-		this.duckService = duckService;
+	public todoController(TodoService todoService) {
+		this.tosoService = todoService;
 	}
 	
-	// localhost:8080/duck
+	// localhost:8080/todo
 	@GetMapping
-	public ResponseEntity<List<DuckDTO>> getAllDucks() {
+	public ResponseEntity<List<TodoDTO>> getAllTodos() {
 		
 		// Response has headers, a body and a status code
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("Location", "1442");
+		httpHeaders.add("Location", "2");
 		
-		List<DuckDTO> data = duckService.readAllDucks();
+		List<TodoDTO> data = todoService.readAllTodos();
 		
 		// ResponseEntity(Body, Headers, HttpStatus)
-		return new ResponseEntity<List<DuckDTO>>(data, httpHeaders, HttpStatus.OK);
+		return new ResponseEntity<List<TodoDTO>>(data, httpHeaders, HttpStatus.OK);
 	}
 }
 ```
@@ -204,19 +175,7 @@ Spring Web supplies us with many different annotations we can use on our control
 - `@DeleteMapping`
 - `@PostMapping`
 
-These mappings are applied to methods, and can be supplied an optional `path`:
 
-```
-// In DuckController with base path of localhost:8080/duck
-// - The GetMapping defines a path of localhost:8080/duck/alt
-// - We also have to supply a query parameter, appended to the url: localhost:8080/duck/alt?id=1
-@GetMapping("/alt")
-public ResponseEntity<DuckDTO> getDuckByIdAlt(@RequestParam("id") int id) {
-  DuckDTO duck = duckService.readById(id);
-
-  return new ResponseEntity<DuckDTO>(duck, HttpStatus.OK);
-}
-```
 
 These mappings correspond to a specific type of HTTP request.
 
@@ -224,28 +183,12 @@ These mappings correspond to a specific type of HTTP request.
 
 `@PathParam` is excluded from these examples, `@RequestParam` is a more powerful version that is implemented by Spring Boot.
 
-The `@RequestParam` annotation allows us to get query parameters from requests url, a query parameter looks like `?id=1` and can be chained with amphersands `?id=1&name=fred`.
+The `@RequestParam` annotation allows us to get query parameters from requests url, a query parameter looks like `?id=1` and can be chained with amphersands `?id=1&name=nikos`.
 
 The `@PathVariable` annotation allows us to get variables from a url path. Specify a path variable with `/{somePathVariableName}` within your URLs path.
 
 ```
-// Specify a query parameter within your methods signature, specifying the name of the key in the key=value pair.
-// This will retrieve the value and put it into the corresponding method parameter as long as the data matches the type.
-@GetMapping("/alt")
-public ResponseEntity<DuckDTO> getDuckByIdAlt(@RequestParam("id") int id) {
-  DuckDTO duck = duckService.readById(id);
 
-  return new ResponseEntity<DuckDTO>(duck, HttpStatus.OK);
-}
-
-// localhost:8080/duck/name/fred
-@GetMapping("/name/{name}")
-public ResponseEntity<DuckDTO> getDuckByName(@PathVariable("name") String name) {
-  DuckDTO duck = duckService.readByName(name);
-
-  return new ResponseEntity<DuckDTO>(duck, HttpStatus.OK);
-}
-```
 
 ## What is a Service
 
@@ -253,26 +196,26 @@ A service is responsible for implementing business logic, we can indicate a serv
 
 ```
 @Service // labelled as a bean (managed by Spring)
-public class DuckService {
+public class UserService {
 	
 	// Data Access Object
-	private DuckRepository duckRepository;
+	private UserRepository userRepository;
 	
-	private DuckMapper duckMapper;
+	private UserMapper userMapper;
 	
 	@Autowired
-	public DuckService(DuckRepository duckRepository, DuckMapper duckMapper) {
-		this.duckRepository = duckRepository;
-		this.duckMapper = duckMapper;
+	public UserService(UserRepository userRepository, UserMapper userMapper) {
+		this.userRepository = userRepository;
+		this.userMapper = userMapper;
 	}
 
-	public List<DuckDTO> readAllDucks() {
-		List<Duck> ducks = duckRepository.findAll();
-		List<DuckDTO> duckDTOs = new ArrayList<DuckDTO>();
+	public List<UserDTO> readAllUsers() {
+		List<User> users = userRepository.findAll();
+		List<UserDTO> userDTOs = new ArrayList<UserDTO>();
 		
-		ducks.forEach(duck -> duckDTOs.add(duckMapper.mapToDTO(duck)));
+		userDTOs = users.stream().map(userMapper::mapToDTO).collect(Collectors.toList());
 		
-		return duckDTOs;
+		return userDTOs;
 	}
 }
 ```
@@ -284,10 +227,10 @@ A repository in Spring Boot is a Data Access Object (DAO) that can be registered
 To create a standard, database-independent repository, we should extend from the `JpaRepository` interface within our repository interface. We use an interface as we don't provide the database connection implementation ourselves, Spring Data JPA and Hibernate provide the implementation.
 
 ```
-// The type specified, Duck, is the type of data that this repository will be accessing
-// - It is able to do this as the Duck model class is registered as an Entity
+// The type specified, User, is the type of data that this repository will be accessing
+// - It is able to do this as the User model class is registered as an Entity
 @Repository
-public interface DuckRepository extends JpaRepository<Duck, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 }
 ```
@@ -298,27 +241,23 @@ An Entity model in Spring is used by the JPA implementation (Hibernate) to creat
 
 ```
 @Entity // JPA + Hibernate will auto-create table for this class
-public class Duck {
+public class User {
 
-	// Validation Rules specify what can and can't be processed in our DB
-	
 	@Id // Auto-incrementing
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name = "name", unique = true) // Setting the name of a column and specifying that any data inserted into the table must be unique
+
+	@Column(name = "firstName")
 	@NotNull
-	private String name;
-	
-	@NotNull // The data cannot be null
-	private String colour;
-	
+	private String firstName;
+
 	@NotNull
-	private String habitat;
-	
-	@Min(0) // The data must be 0 at a minimum (age >= 0)
-	@Max(36) // The data can be 36 at most (age <= 36)
-	private int age;
+	private String lastName;
+
+	private String userName;
+
+	private String password;
   
 }
 ```
@@ -327,19 +266,16 @@ We can also have our validation rules applied before our service or repository a
 
 ```
 @PostMapping
-public ResponseEntity<DuckDTO> createDuck(@Valid @RequestBody Duck duck) {
-  DuckDTO newDuck = duckService.createDuck(duck);
+public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {
+  UserDTO newUser = userService.createUser(user);
 
   HttpHeaders headers = new HttpHeaders();
-  headers.add("Location", String.valueOf(newDuck.getId()));
+  headers.add("Location", String.valueOf(newUser.getId()));
 
-  return new ResponseEntity<DuckDTO>(newDuck, headers, HttpStatus.CREATED);
+  return new ResponseEntity<UserDTO>(newDuck, headers, HttpStatus.CREATED);
 }
 ```
 
-## General Data Flow of a Spring Rest API
-
-![image](https://user-images.githubusercontent.com/67016030/110527894-6db4f380-810f-11eb-963a-fecdc4807747.png)
 
 ## What is the JPA?
 
@@ -364,20 +300,20 @@ class MyCustomException extends Exception {}
 We can also extend other exceptions for better type specificity:
 
 ```
-@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "A duck was not found, QUACK!!!")
-public class DuckNotFoundException extends EntityNotFoundException {
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "A user was not found")
+public class UserNotFoundException extends EntityNotFoundException {
 
-	public DuckNotFoundException() {
+	public UserNotFoundException() {
 		super(); // calls EntityNotFoundException()
 	}
 
-	public DuckNotFoundException(String message) {
+	public UserNotFoundException(String message) {
 		super(message); // calls EntityNotFoundException(String message)
 	}
 }
 ```
 
-The above `DuckNotFoundException` is a custom exception inheriting from the `EntityNotFoundException`, we can throw this in our code like any other exception. We can also specify a simple response by annotating the exception with `@ResponseStatus`. The above example states:
+The above `UserNotFoundException` is a custom exception inheriting from the `EntityNotFoundException`, we can throw this in our code like any other exception. We can also specify a simple response by annotating the exception with `@ResponseStatus`. The above example states:
 
 - The response code is a 404, using the enum value of HttpStatus.NOT_FOUND
 - The reason/message sent in the response is the supplied String literal
@@ -417,14 +353,40 @@ public class SimpleEntityModelDTO {
 }
 ```
 
-## Unit Testing a Component
-
-## Prepopulating a database for a Integration Test
-
-## Integration Testing a Component
+Unit Tests
+Every file needs to have it's own respective test file and test the methods* within. We make sure we have the correct imports on top.
 
 
 
-# Acknowledgment
+These tests, test the constructors and the methods in the main file. This happends with dummy values and with assertions. They are several types of assetions, but the main ones are assertEquals, assertNotNull, assertSame, assertTrue.
 
-[Jordan Harrison](https://github.com/JHarry444/SpringDucks) - Author of project used to guide the lessons
+
+Integration Tests
+Explain what these tests test, why and how to run them
+
+These tests, have an approach to target the fundamental buidling blocks of an application. We can use Mockito for Integration Testing, using mock values to see if it works. We always make sure we have imported the correct imports on top.
+
+## Built With
+
+* [Maven](https://maven.apache.org/) - Dependency Management
+
+## Authors
+* **Nikolaos Papadopoulos** - [Moodhunter34](https://github.com/Moodhunter34)
+
+## License
+
+This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md) file for details 
+
+*For help in [Choosing a license](https://choosealicense.com/)*
+
+## Acknowledgments
+
+* **Jordan Harrison** - *Other Contributors* - [JHarry444](https://github.com/JHarry444)
+* **Ed Reynolds** - *Other Contributors* - [Erdz-96](https://github.com/Edrz-96)
+* **Morgan Walsh** - *Other Contributors* - [MrWalshyType2](https://github.com/MrWalshyType2)
+
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
+
