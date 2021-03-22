@@ -16,7 +16,7 @@ button {
   font: inherit;
   border: 1px solid #000053;
   color: white;
-  background: rgb(49, 89, 153);
+  background: #000053;
   padding: 0.5rem 1.5rem;
   border-radius: 8px;
   cursor: pointer;
@@ -90,7 +90,7 @@ section {
   padding: 22px;
   margin: auto;
   margin-top: 2px;
-  margin-right: 130px;
+  margin-right: 180px;
 }
 
 .form-control {
@@ -136,4 +136,3 @@ section {
   margin-top: 22px;
   margin-right: 350px;
 }
-
